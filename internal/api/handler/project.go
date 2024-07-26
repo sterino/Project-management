@@ -65,12 +65,15 @@ func (ph *ProjectHandler) ListProjects(c *gin.Context) {
 	successRes := response.ClientResponse(http.StatusOK, "the projects list", res, nil)
 	c.JSON(http.StatusOK, successRes)
 }
+
 func (ph *ProjectHandler) GetProject(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
+
 func (ph *ProjectHandler) DeleteProject(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
+
 func (ph *ProjectHandler) UpdateProject(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }

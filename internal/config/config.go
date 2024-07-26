@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/joho/godotenv"
+	"github.com/kelseyhightower/envconfig"
 	"os"
 	"path/filepath"
 )
@@ -22,15 +23,18 @@ func LoadConfig() (cfg Config, err error) {
 
 	err = godotenv.Load(filepath.Join(root, ".env"))
 	if err != nil {
+		cfg = Config{
+			DBHost:     os.Getenv("DBHost"),
+			DBPort:     os.Getenv("DBPort"),
+			DBUser:     os.Getenv("DBUser"),
+			DBPassword: os.Getenv("DBPassword"),
+			DBName:     os.Getenv("DBName"),
+		}
 		return
 	}
 
-	cfg = Config{
-		DBHost:     os.Getenv("DBHost"),
-		DBPort:     os.Getenv("DBPort"),
-		DBUser:     os.Getenv("DBUser"),
-		DBPassword: os.Getenv("DBPassword"),
-		DBName:     os.Getenv("DBName"),
+	if err = envconfig.Process("DB", &cfg); err != nil {
+		return
 	}
 
 	return
