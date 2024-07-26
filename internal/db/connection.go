@@ -15,6 +15,7 @@ func ConnectDatabase(cfg config.Config) (psqlUrl string, store *sqlx.DB, err err
 
 	store, err = sqlx.Connect("postgres", psqlUrl)
 	if err != nil {
+		log.Fatalf("Failed to connect to the database: %v", err)
 		return
 	}
 	log.Printf("Connected to database with URL: %s", psqlUrl)
