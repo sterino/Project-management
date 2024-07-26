@@ -1,26 +1,6 @@
 version: '3.8'
 
 services:
-  app:
-    image: project-management-app
-    restart: on-failure
-    container_name: project-management-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-#    env_file:
-#      - .env
-    environment:
-      - DBHost=$DBHost
-      - DBPort=$DBPort
-      - DBUser=$DBUser
-      - DBPassword=$DBPassword
-      - DBName=$DBName
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   postgres:
     image: postgres:latest
@@ -34,7 +14,28 @@ services:
       - POSTGRES_DB=$DBName
       - POSTGRES_USER=$DBUser
     healthcheck:
-      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 3s
       retries: 5
       timeout: 5s
+
+  app:
+    image: project-management-app
+    restart: on-failure
+    container_name: project-management-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    #    env_file:
+    #      - .env
+    environment:
+      - DBHost=$DBHost
+      - DBPort=$DBPort
+      - DBUser=$DBUser
+      - DBPassword=$DBPassword
+      - DBName=$DBName
+    depends_on:
+      postgres:
+        condition: service_healthy
