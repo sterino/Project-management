@@ -8,18 +8,15 @@ import (
 )
 
 type Config struct {
-	DBHost     string `envconfig:"DBHost"`
-	DBPort     string `envconfig:"DBPort"`
-	DBUser     string `envconfig:"DBUser"`
-	DBPassword string `envconfig:"DBPassword"`
-	DBName     string `envconfig:"DBName"`
+	DBHost     string
+	DBPort     string
+	DBUser     string
+	DBPassword string
+	DBName     string
 }
 
 func LoadConfig() (cfg Config, err error) {
 
-	if err = envconfig.Process("DB", &cfg); err != nil {
-		return
-	}
 	root, err := os.Getwd()
 	if err != nil {
 		return
@@ -34,6 +31,9 @@ func LoadConfig() (cfg Config, err error) {
 		cfg.DBName = os.Getenv("DBName")
 
 		return cfg, nil
+	}
+	if err = envconfig.Process("DB", &cfg); err != nil {
+		return
 	}
 
 	return
