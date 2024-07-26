@@ -14,7 +14,7 @@ services:
       - POSTGRES_DB=$DBName
       - POSTGRES_USER=$DBUser
     healthcheck:
-      test: pg_isready -U POSTGRES_USER -d $$POSTGRES_DB
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
       interval: 3s
       retries: 5
       timeout: 5s
