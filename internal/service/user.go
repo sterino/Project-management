@@ -15,22 +15,22 @@ func NewUserService(repository *repository.UserRepository) *UserService {
 	}
 }
 
-func (us *UserService) CreateUser(ctx context.Context) {
-
+func (us *UserService) CreateUser(ctx context.Context) (err error) {
+	return nil
 }
 
-func (us *UserService) ListUsers(ctx context.Context) {
-
+func (us *UserService) ListUsers(ctx context.Context) (err error) {
+	return nil
 }
 
-func (us *UserService) GetUser(ctx context.Context) {
-
+func (us *UserService) GetUser(ctx context.Context) (err error) {
+	return nil
 }
 
-func (us *UserService) DeleteUser(ctx context.Context) {
-
+func (us *UserService) DeleteUser(ctx context.Context) (err error) {
+	return nil
 }
 
-func (us *UserService) UpdateUser(ctx context.Context) {
-
+func (us *UserService) UpdateUser(ctx context.Context) (err error) {
+	return nil
 }

@@ -32,7 +32,7 @@ func LoadConfig() (cfg Config, err error) {
 
 		return cfg, nil
 	}
-	if err = envconfig.Process("DB", &cfg); err != nil {
+	if err = envconfig.Process("", &cfg); err != nil {
 		return
 	}
 

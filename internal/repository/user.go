@@ -1,9 +1,7 @@
 package repository
 
 import (
-	"context"
 	"github.com/jmoiron/sqlx"
-	"project-management/internal/domain/user"
 )
 
 type UserRepository struct {
@@ -16,20 +14,20 @@ func NewUserRepository(db *sqlx.DB) *UserRepository {
 	}
 }
 
-func (tr *UserRepository) Create(ctx context.Context, data user.Entity) {
-	return
-}
-
-func (tr *UserRepository) Update(ctx context.Context, data user.Entity) {
-
-}
-
-func (tr *UserRepository) Delete(ctx context.Context, data user.Entity) {
-
-}
-
-func (tr *UserRepository) Get(ctx context.Context, data user.Entity) {}
-
-func (tr *UserRepository) List(ctx context.Context, data user.Entity) {}
-
-func (tr *UserRepository) Search(ctx context.Context, data user.Entity) {}
+//func (tr *UserRepository) Create(ctx context.Context, data user.Entity) {
+//	return
+//}
+//
+//func (tr *UserRepository) Update(ctx context.Context, data user.Entity) {
+//
+//}
+//
+//func (tr *UserRepository) Delete(ctx context.Context, data user.Entity) {
+//
+//}
+//
+//func (tr *UserRepository) Get(ctx context.Context, data user.Entity) {}
+//
+//func (tr *UserRepository) List(ctx context.Context, data user.Entity) {}
+//
+//func (tr *UserRepository) Search(ctx context.Context, data user.Entity) {}

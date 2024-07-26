@@ -38,6 +38,12 @@ func (ps *ProjectService) ListProjects(ctx context.Context) (res []project.Respo
 	res = project.ParseFromEntities(data)
 	return
 }
-func (ps *ProjectService) GetProject()    {}
-func (ps *ProjectService) DeleteProject() {}
-func (ps *ProjectService) UpdateProject() {}
+func (ps *ProjectService) GetProject(ctx context.Context) (err error) {
+	return nil
+}
+func (ps *ProjectService) DeleteProject(ctx context.Context) (err error) {
+	return nil
+}
+func (ps *ProjectService) UpdateProject(ctx context.Context) (err error) {
+	return nil
+}

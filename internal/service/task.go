@@ -1,7 +1,6 @@
 package service
 
 import (
-	"context"
 	"project-management/internal/repository"
 )
 
@@ -15,22 +14,23 @@ func NewTaskService(repository *repository.TaskRepository) *TaskService {
 	}
 }
 
-func (ts *TaskService) CreateTask(ctx context.Context) {
-
-}
-
-func (ts *TaskService) ListTasks(ctx context.Context) {
-
-}
-
-func (ts *TaskService) GetTask(ctx context.Context) {
-
-}
-
-func (ts *TaskService) DeleteTask(ctx context.Context) {
-
-}
-
-func (ts *TaskService) UpdateTask(ctx context.Context) {
-
-}
+//
+//func (ts *TaskService) CreateTask(ctx context.Context, req task.Request) (err error) {
+//	return nil
+//}
+//
+//func (ts *TaskService) ListTasks(ctx context.Context) (err error) {
+//	return nil
+//}
+//
+//func (ts *TaskService) GetTask(ctx context.Context) (err error) {
+//	return nil
+//}
+//
+//func (ts *TaskService) DeleteTask(ctx context.Context) (err error) {
+//	return nil
+//}
+//
+//func (ts *TaskService) UpdateTask(ctx context.Context) (err error) {
+//	return nil
+//}
