@@ -31,12 +31,12 @@ func (pr *ProjectRepository) Create(ctx context.Context, data project.Entity) (i
 	return
 }
 func (pr *ProjectRepository) List(ctx context.Context) (projects []project.Entity, err error) {
-	query := `SELECT title, description, manager_id FROM projects ORDER BY id;`
+	query := `SELECT title, description, manager_id, start_date, end_date FROM projects ORDER BY id;`
 	err = pr.db.SelectContext(ctx, &projects, query)
 	return
 }
 func (pr *ProjectRepository) Get(ctx context.Context, id string) (data project.Entity, err error) {
-	query := `SELECT title, description, manager_id FROM projects WHERE id = $1;`
+	query := `SELECT title, description, manager_id, start_date, end_date FROM projects WHERE id = $1;`
 
 	args := []any{id}
 

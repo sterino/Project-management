@@ -10,14 +10,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     environment:
-      - DBHost=${DBHost}
-      - DBPort=${DBPort}
-      - DBUser=${DBUser}
-      - DBPassword=${DBPassword}
-      - DBName=${DBName}
+      - DBHost=$DBHost
+      - DBPort=$DBPort
+      - DBUser=$DBUser
+      - DBPassword=$DBPassword
+      - DBName=$DBName
     depends_on:
       postgres:
         condition: service_healthy
@@ -27,12 +27,12 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     environment:
-      - POSTGRES_PASSWORD=${DBPassword}
-      - POSTGRES_DB=${DBName}
-      - POSTGRES_USER=${DBUser}
+      - POSTGRES_PASSWORD=$DBPassword
+      - POSTGRES_DB=$DBName
+      - POSTGRES_USER=$DBUser
     healthcheck:
       test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
       interval: 10s
