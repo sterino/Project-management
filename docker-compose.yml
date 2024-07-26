@@ -3,8 +3,8 @@ version: '3.8'
 services:
 
   postgres:
-    image: postgres:latest
-    restart: always
+    image: postgres:16.3
+#    restart: always
     ports:
       - "5432:5432"
     env_file:
@@ -20,9 +20,7 @@ services:
       timeout: 5s
 
   app:
-    image: project-management-app
-    restart: on-failure
-    container_name: project-management-app
+#    restart: on-failure
     build:
       context: .
       dockerfile: Dockerfile
