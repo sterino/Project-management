@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     image: project-management-app
+    restart: on-failure
     container_name: project-management-app
     build:
       context: .
@@ -16,9 +17,10 @@ services:
 
   postgres:
     image: postgres:latest
+    restart: always
     ports:
       - "5432:5432"
+    env_file:
+      - .env
     environment:
-      - POSTGRES_DB=$DBName
-      - POSTGRES_USER=$DBUser
-      - POSTGRES_PASSWORD=$DBPassword
+      POSTGRES_PASSWORD: ${DBPassword}

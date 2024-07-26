@@ -1,20 +1,21 @@
 FROM golang:1.22.5-alpine AS builder
 
-WORKDIR /build
+WORKDIR /app
 
-#COPY go.mod go.sum ./
-#
-#RUN go mod download
+COPY go.mod go.sum ./
 
-COPY . .
+RUN go mod download
+
+COPY . ./
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o project-management ./cmd
 
-
 FROM alpine AS hoster
 
-COPY --from=builder /build/.env .env
-COPY --from=builder /build/project-management ./project-management
-COPY --from=builder /build/migrations ./migrations
+WORKDIR /app
+
+COPY --from=builder /app/.env ./.env
+COPY --from=builder /app/project-management ./project-management
+COPY --from=builder /app/migrations ./migrations
 
 ENTRYPOINT ["./project-management"]

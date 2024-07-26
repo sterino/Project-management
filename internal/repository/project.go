@@ -35,6 +35,33 @@ func (pr *ProjectRepository) List(ctx context.Context) (projects []project.Entit
 	err = pr.db.SelectContext(ctx, &projects, query)
 	return
 }
-func (pr *ProjectRepository) Get()    {}
-func (pr *ProjectRepository) Delete() {}
-func (pr *ProjectRepository) Update() {}
+func (pr *ProjectRepository) Get(ctx context.Context, id string) (data project.Entity, err error) {
+	query := `SELECT title, description, manager_id FROM projects WHERE id = $1;`
+
+	args := []any{id}
+
+	err = pr.db.GetContext(ctx, &data, query, args...)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			err = project.ErrorNotFound
+		}
+	}
+
+	return
+}
+func (pr *ProjectRepository) Delete(ctx context.Context, id string) (err error) {
+	query := `DELETE FROM projects WHERE id = $1 RETURNING id;`
+
+	args := []any{id}
+
+	if err = pr.db.QueryRowContext(ctx, query, args...).Scan(&id); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			err = project.ErrorNotFound
+		}
+	}
+	return
+}
+func (pr *ProjectRepository) Update(ctx context.Context, id string, data project.Entity) (err error) {
+
+	return
+}
