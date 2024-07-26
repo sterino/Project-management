@@ -24,3 +24,5 @@ services:
       - .env
     environment:
       POSTGRES_PASSWORD: ${DBPassword}
+      POSTGRES_DB: ${DBName}
+      POSTGRES_USER: ${DBUser}
