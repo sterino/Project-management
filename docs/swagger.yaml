@@ -1,0 +1,71 @@
+basePath: /api
+definitions:
+  project.Request:
+    properties:
+      description:
+        type: string
+      manager_id:
+        type: string
+      title:
+        type: string
+    type: object
+  response.Response:
+    properties:
+      data: {}
+      error: {}
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: API Server for Project Management App
+  title: Project Management
+  version: "1.0"
+paths:
+  /projects:
+    get:
+      description: List projects
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: List projects
+      tags:
+      - project
+    post:
+      consumes:
+      - application/json
+      description: Create project
+      parameters:
+      - description: Project details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/project.Request'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Create project
+      tags:
+      - project
+swagger: "2.0"
