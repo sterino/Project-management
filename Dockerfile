@@ -2,24 +2,17 @@ FROM golang:1.22.5-alpine AS builder
 
 WORKDIR /build
 
-COPY go.mod go.sum ./
-RUN go mod download
+COPY . .
 
-COPY . ./
+RUN go build -o app ./cmd
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o project ./cmd
 
-EXPOSE 8080
-
-CMD ["./project"]
-
-FROM alpine AS hoster
+FROM alpine
 
 WORKDIR /app
 
+#COPY --from=builder /build/.env ./.env
 COPY --from=builder /build/migrations ./migrations
-COPY --from=builder /build/project ./project
+COPY --from=builder /build/app ./app
 
-EXPOSE 8080
-
-CMD ["./project"]
+ENTRYPOINT ["./app"]
