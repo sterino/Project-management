@@ -1,38 +1,4 @@
 services:
-  postgres:
-    image: postgres:latest
-    ports:
-      - "5432:5432"
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-    healthcheck:
-      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
-      interval: 3s
-      retries: 5
-      timeout: 5s
-
-
-  migrate:
-    image: migrate/migrate
-    volumes:
-      - ./migrations/postgres:/migrations
-    command: -path=/migrations/ -database=postgres://postgres:password@postgres:5432/postgres?sslmode=disable up
-    env_file:
-      - .env
-    environment:
-      - DBHost=postgres
-      - DBPort=5432
-      - DBUser=postgres
-      - DBPassword=password
-      - DBName=postgres
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   app:
     build:
       context: .
@@ -41,12 +7,37 @@ services:
       - "8080:8080"
     env_file:
       - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+  postgres:
+    image: postgres:16.3
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
     environment:
-      - DBHost=postgres
-      - DBPort=5432
-      - DBUser=postgres
-      - DBPassword=password
-      - DBName=postgres
+      - POSTGRES_USER=$DBUser
+      - POSTGRES_DB=$DBName
+      - POSTGRES_PASSWORD=$DBPassword
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+    restart: always
+
+
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./migrations/postgres:/migrations
+    command: -path=/migrations/ -database=postgres://$DBUser:$DBPassword@$DBHost:$DBPort/$DBName?sslmode=disable up
+    env_file:
+      - .env
     depends_on:
       postgres:
         condition: service_healthy
