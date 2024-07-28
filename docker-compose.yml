@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
 
-  postgres:
+  db:
     image: postgres:latest
     ports:
       - "5432:5432"
@@ -27,13 +27,13 @@ services:
     env_file:
       - .env
     environment:
-      - DBHost=postgres
+      - DBHost=$DBHost
       - DBPort=$DBPort
       - DBUser=$DBUser
       - DBPassword=$DBPassword
       - DBName=$DBName
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
 
   app:
@@ -45,12 +45,12 @@ services:
     env_file:
       - .env
     environment:
-      - DBHost=postgres
+      - DBHost=$DBHost
       - DBPort=$DBPort
       - DBUser=$DBUser
       - DBPassword=$DBPassword
       - DBName=$DBName
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
 
