@@ -5,6 +5,8 @@ import (
 	"os"
 	"project-management/internal/config"
 	"project-management/internal/di"
+
+	_ "project-management/docs"
 )
 
 // @title Project Management

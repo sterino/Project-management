@@ -3,8 +3,7 @@ version: '3.8'
 services:
 
   postgres:
-    image: postgres:16.3
-#    restart: always
+    image: postgres:latest
     ports:
       - "5432:5432"
     env_file:
@@ -19,8 +18,25 @@ services:
       retries: 5
       timeout: 5s
 
+
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./migrations/postgres:/migrations
+    command: -path=/migrations/ -database=postgres://$DBUser:$DBPassword@$DBHost:$DBPort/$DBName?sslmode=disable up
+    env_file:
+      - .env
+    environment:
+      - DBHost=$DBHost
+      - DBPort=$DBPort
+      - DBUser=$DBUser
+      - DBPassword=$DBPassword
+      - DBName=$DBName
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   app:
-#    restart: on-failure
     build:
       context: .
       dockerfile: Dockerfile
@@ -37,3 +53,4 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+

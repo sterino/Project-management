@@ -27,10 +27,10 @@ func InitializeAPI(cfg config.Config) (*http.Server, error) {
 	taskService := service.NewTaskService(taskRepository)
 	taskHandler := handler.NewTaskHandler(taskService)
 	userRepository := repository.NewUserRepository(sqlxDB)
-	userService := service.NewUserService(userRepository)
+	userService := service.NewUserService(userRepository, taskRepository)
 	userHandler := handler.NewUserHandler(userService)
 	projectRepository := repository.NewProjectRepository(sqlxDB)
-	projectService := service.NewProjectService(projectRepository)
+	projectService := service.NewProjectService(projectRepository, taskRepository)
 	projectHandler := handler.NewProjectHandler(projectService)
 	server := http.NewServer(taskHandler, userHandler, projectHandler)
 	return server, nil

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS projects (
     id UUID PRIMARY KEY DEFAULT GEN_RANDOM_UUID(),
     title VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
-    start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    end_date TIMESTAMP,
-    manager_id UUID NOT NULL
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP NOT NULL,
+    manager_id UUID NOT NULL REFERENCES users(id)
 );
