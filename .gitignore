@@ -1,2 +1,7 @@
+.idea
+.git
 .env
-
+*.md
+node_modules
+/tmp
+dist
