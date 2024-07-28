@@ -14,5 +14,6 @@ WORKDIR /app
 #COPY --from=builder /build/.env ./.env
 COPY --from=builder /build/migrations ./migrations
 COPY --from=builder /build/app ./app
+COPY --from=builder . ./
 
 ENTRYPOINT ["./app"]
