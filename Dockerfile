@@ -8,14 +8,14 @@ WORKDIR /build
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o project-management ./cmd
+RUN CGO_ENABLED=0 GOOS=linux go build -o project ./cmd
 
 FROM alpine AS hoster
 
 WORKDIR /app
 
 COPY --from=builder /build/migrations ./migrations
-COPY --from=builder /build/project-management ./project-management
+COPY --from=builder /build/project ./project
 
 
-ENTRYPOINT ["./project-management"]
+ENTRYPOINT ["./project"]
