@@ -5,13 +5,13 @@
 package di
 
 import (
+	_ "github.com/lib/pq"
 	"project-management/internal/api"
 	"project-management/internal/api/handler"
 	"project-management/internal/config"
 	"project-management/internal/db"
 	"project-management/internal/repository"
 	"project-management/internal/service"
-	_ "github.com/lib/pq"
 )
 
 func InitializeAPI(cfg config.Config) (*http.Server, error) {
